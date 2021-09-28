@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { PasswordForgetForm } from "../PasswordForget";
 import PasswordChangeForm from "../PasswordChange";
 import { AuthUserContext, withAuthorization } from "../Session";
+import { StyledBigButton } from "../../compStyles";
 
 const AccountPage = ({ theme, setTheme }) => {
   const { email } = useContext(AuthUserContext);
@@ -14,13 +15,13 @@ const AccountPage = ({ theme, setTheme }) => {
   return (
     <div>
       <h1>Account: {email}</h1>
-      <button
+      <StyledBigButton
         onClick={() => {
           themeToggler();
         }}
       >
         MODE
-      </button>
+      </StyledBigButton>
       <PasswordForgetForm />
       <PasswordChangeForm />
     </div>

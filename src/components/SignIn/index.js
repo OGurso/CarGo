@@ -5,15 +5,26 @@ import { PasswordForgetLink } from "../PasswordForget";
 
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
+import {
+  StyledInput,
+  InputwithIcon,
+  StyledBigButton,
+  StyledForm,
+} from "../../compStyles";
+import emailIcon from "../../img/icons/email.svg";
+import lockIcon from "../../img/icons/lock.svg";
+import googlelogin from "../../img/googlelogin.svg";
 
 const SignInPage = () => (
-  <div>
-    <h1>SignIn</h1>
+  <main>
+    <h1>Login</h1>
     <SignInForm />
+    <h3>OR</h3>
     <SignInGoogle />
     <PasswordForgetLink />
+
     <SignUpLink />
-  </div>
+  </main>
 );
 
 const INITIAL_STATE = {
@@ -52,27 +63,34 @@ class SignInFormBase extends Component {
     const isInvalid = password === "" || email === "";
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          name="password"
-          value={password}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-          autoComplete="current-password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign In
-        </button>
+      <StyledForm onSubmit={this.onSubmit}>
+        <InputwithIcon>
+          <img src={emailIcon} />
+          <StyledInput
+            name="email"
+            value={email}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Email Address"
+          />
+        </InputwithIcon>
+        <InputwithIcon>
+          <img src={lockIcon} />
+          <StyledInput
+            name="password"
+            value={password}
+            onChange={this.onChange}
+            type="password"
+            placeholder="Password"
+            autoComplete="current-password"
+          />
+        </InputwithIcon>
+
+        <StyledBigButton disabled={isInvalid} type="submit">
+          LOGIN
+        </StyledBigButton>
         {error && <p>{error.message}</p>}
-      </form>
+      </StyledForm>
     );
   }
 }
@@ -105,10 +123,10 @@ class SignInGoogleBase extends Component {
   render() {
     const { error } = this.state;
     return (
-      <form onSubmit={this.onSubmit}>
-        <button type="submit">Sign In with Google</button>
+      <div>
+        <img onClick={this.onSubmit} src={googlelogin} />
         {error && <p>{error.message}</p>}
-      </form>
+      </div>
     );
   }
 }

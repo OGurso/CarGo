@@ -1,13 +1,23 @@
 import React, { Component } from "react";
+import { SignInGoogle } from "../SignIn";
 import { Link, withRouter } from "react-router-dom";
 import { withFirebase } from "../Firebase";
 
 import * as ROUTES from "../../constants/routes";
 import * as ROLES from "../../constants/roles";
+import {
+  StyledBigButton,
+  StyledInput,
+  InputwithIcon,
+  StyledForm,
+} from "../../compStyles";
+import emailIcon from "../../img/icons/email.svg";
+import lockIcon from "../../img/icons/lock.svg";
+import personIcon from "../../img/icons/person.svg";
 
 const SignUpPage = () => (
   <div>
-    <h1>SignUp</h1>
+    <h1>Sign Up</h1>
     <SignUpForm />
   </div>
 );
@@ -70,35 +80,47 @@ class SignUpFormBase extends Component {
       username === "";
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="username"
-          value={username}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Full Name"
-        />
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />{" "}
-        <input
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />{" "}
-        <input
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Confirm Password"
-        />
+      <StyledForm onSubmit={this.onSubmit}>
+        <InputwithIcon>
+          <img src={personIcon} />
+          <StyledInput
+            name="username"
+            value={username}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Full Name"
+          />
+        </InputwithIcon>
+        <InputwithIcon>
+          <img src={emailIcon} />
+          <StyledInput
+            name="email"
+            value={email}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Email Address"
+          />
+        </InputwithIcon>
+        <InputwithIcon>
+          <img src={lockIcon} />
+          <StyledInput
+            name="passwordOne"
+            value={passwordOne}
+            onChange={this.onChange}
+            type="password"
+            placeholder="Password"
+          />
+        </InputwithIcon>
+        <InputwithIcon>
+          <img src={lockIcon} />
+          <StyledInput
+            name="passwordTwo"
+            value={passwordTwo}
+            onChange={this.onChange}
+            type="password"
+            placeholder="Confirm Password"
+          />
+        </InputwithIcon>
         <label>
           Admin:
           <input
@@ -108,11 +130,13 @@ class SignUpFormBase extends Component {
             onChange={this.onChangeCheckbox}
           />
         </label>
-        <button disabled={isInvalid} type="submit">
+        <StyledBigButton disabled={isInvalid} type="submit">
           Sign Up
-        </button>
+        </StyledBigButton>
+
+        <SignInGoogle />
         {error && <p>{error.message}</p>}
-      </form>
+      </StyledForm>
     );
   }
 }
