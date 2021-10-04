@@ -53,13 +53,14 @@ class PasswordForgetFormBase extends Component {
     return (
       <StyledForm onSubmit={this.onSubmit}>
         <InputwithIcon>
-          <img src={emailIcon} />
+          <img src={emailIcon} alt="email-icon" />
           <StyledInput
             name="email"
             value={this.state.email}
             onChange={this.onChange}
             type="text"
             placeholder="Email Address"
+            autoComplete="email"
           />
         </InputwithIcon>
         <StyledBigButton disabled={isInvalid} type="submit">

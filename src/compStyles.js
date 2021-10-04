@@ -75,3 +75,9 @@ export const StyledForm = styled.form`
     margin: 20px 0;
   }
 `;
+// export const CenterChildren = styled.div`
+//   display: flex;
+//   width: 100%;
+//   justify-content: center;
+//   align-items: center;
+// `;

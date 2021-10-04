@@ -3,10 +3,10 @@ import { withAuthorization, AuthUserContext } from "../Session";
 import { withFirebase } from "../Firebase";
 import { StyledBigButton, StyledInput, InlineButton } from "../../compStyles";
 
-const HomePage = () => (
+const ChatPage = () => (
   <div>
-    <h1>Home</h1>
-    <p>The Home Page is accessible by every signed in user.</p>
+    <h1>Chat</h1>
+    <p>The Chat Page is accessible by every signed in user.</p>
     <Messages />
   </div>
 );
@@ -93,6 +93,7 @@ class MessagesBase extends Component {
                 type="text"
                 value={text}
                 onChange={this.onChangeText}
+                autoComplete="off"
               />
               <StyledBigButton type="submit">Send</StyledBigButton>
             </form>
@@ -193,4 +194,4 @@ const Messages = withFirebase(MessagesBase);
 
 const condition = (authUser) => !!authUser;
 
-export default withAuthorization(condition)(HomePage);
+export default withAuthorization(condition)(ChatPage);

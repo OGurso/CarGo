@@ -6,7 +6,7 @@ import { AuthUserContext, withAuthorization } from "../Session";
 import { StyledBigButton } from "../../compStyles";
 
 const AccountPage = ({ theme, setTheme }) => {
-  const { email } = useContext(AuthUserContext);
+  const { username } = useContext(AuthUserContext);
 
   const themeToggler = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
@@ -14,7 +14,7 @@ const AccountPage = ({ theme, setTheme }) => {
 
   return (
     <div>
-      <h1>Account: {email}</h1>
+      <h1>Account: {username}</h1>
       <StyledBigButton
         onClick={() => {
           themeToggler();

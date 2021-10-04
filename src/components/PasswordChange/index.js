@@ -43,6 +43,7 @@ class PasswordChangeForm extends Component {
           onChange={this.onChange}
           type="password"
           placeholder="New Password"
+          autoComplete="new-password"
         />
         <StyledInput
           name="passwordTwo"
@@ -50,6 +51,7 @@ class PasswordChangeForm extends Component {
           onChange={this.onChange}
           type="password"
           placeholder="Confirm New Password"
+          autoComplete="off"
         />
         <StyledBigButton disabled={isInvalid} type="submit">
           Reset My Password

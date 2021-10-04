@@ -6,7 +6,7 @@ import { StyledMain } from "./style";
 
 const Landing = () => (
   <StyledMain>
-    <img src={cargologo} />
+    <img src={cargologo} alt="logo" />
     <p>
       Choose between hundreds of cars in Swedens largest cities. Rent cars
       faster and easier.

@@ -24,11 +24,14 @@ const Navigation = () => (
 const NavigationAuth = ({ authUser }) => (
   <div>
     <ul>
-      <li>
+      {/* <li>
         <Link to={ROUTES.LANDING}>Landing</Link>
+      </li> */}
+      <li>
+        <Link to={ROUTES.FILTER}>Filter</Link>
       </li>
       <li>
-        <Link to={ROUTES.HOME}>Home</Link>
+        <Link to={ROUTES.CHAT}>Chat</Link>
       </li>
       <li>
         <Link to={ROUTES.ACCOUNT}>Account</Link>

@@ -54,7 +54,7 @@ class SignUpFormBase extends Component {
       })
       .then(() => {
         this.setState({ ...INITIAL_STATE });
-        this.props.history.push(ROUTES.HOME);
+        this.props.history.push(ROUTES.FILTER);
       })
       .catch((error) => {
         this.setState({ error });
@@ -82,43 +82,47 @@ class SignUpFormBase extends Component {
     return (
       <StyledForm onSubmit={this.onSubmit}>
         <InputwithIcon>
-          <img src={personIcon} />
+          <img src={personIcon} alt="username-icon" />
           <StyledInput
             name="username"
             value={username}
             onChange={this.onChange}
             type="text"
             placeholder="Full Name"
+            autoComplete="name"
           />
         </InputwithIcon>
         <InputwithIcon>
-          <img src={emailIcon} />
+          <img src={emailIcon} alt="email-icon" />
           <StyledInput
             name="email"
             value={email}
             onChange={this.onChange}
             type="text"
             placeholder="Email Address"
+            autoComplete="email"
           />
         </InputwithIcon>
         <InputwithIcon>
-          <img src={lockIcon} />
+          <img src={lockIcon} alt="password-icon" />
           <StyledInput
             name="passwordOne"
             value={passwordOne}
             onChange={this.onChange}
             type="password"
             placeholder="Password"
+            autoComplete="new-password"
           />
         </InputwithIcon>
         <InputwithIcon>
-          <img src={lockIcon} />
+          <img src={lockIcon} alt="password-icon" />
           <StyledInput
             name="passwordTwo"
             value={passwordTwo}
             onChange={this.onChange}
             type="password"
             placeholder="Confirm Password"
+            autoComplete="off"
           />
         </InputwithIcon>
         <label>

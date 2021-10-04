@@ -46,7 +46,7 @@ class SignInFormBase extends Component {
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
-        this.props.history.push(ROUTES.HOME);
+        this.props.history.push(ROUTES.FILTER);
       })
       .catch((error) => {
         this.setState({ error });
@@ -65,17 +65,18 @@ class SignInFormBase extends Component {
     return (
       <StyledForm onSubmit={this.onSubmit}>
         <InputwithIcon>
-          <img src={emailIcon} />
+          <img src={emailIcon} alt="email-icon" />
           <StyledInput
             name="email"
             value={email}
             onChange={this.onChange}
             type="text"
             placeholder="Email Address"
+            autoComplete="email"
           />
         </InputwithIcon>
         <InputwithIcon>
-          <img src={lockIcon} />
+          <img src={lockIcon} alt="password-icon" />
           <StyledInput
             name="password"
             value={password}
@@ -113,7 +114,7 @@ class SignInGoogleBase extends Component {
       })
       .then(() => {
         this.setState({ error: null });
-        this.props.history.push(ROUTES.HOME);
+        this.props.history.push(ROUTES.FILTER);
       })
       .catch((error) => {
         this.setState({ error });
@@ -124,7 +125,7 @@ class SignInGoogleBase extends Component {
     const { error } = this.state;
     return (
       <div>
-        <img onClick={this.onSubmit} src={googlelogin} />
+        <img onClick={this.onSubmit} src={googlelogin} alt="gmail-login" />
         {error && <p>{error.message}</p>}
       </div>
     );
