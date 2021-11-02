@@ -1,16 +1,12 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
-html{
-  /* margin:0;
-  padding:0;
-  width:100vw;
-  height:100vh; */
-}
+
 body{
   background-color: ${(props) => props.theme.bgPrimary};
   color: ${(props) => props.theme.color};
-
+  width:100vw;
+  height:100vh;
 }
 a{
   color: ${(props) => props.theme.color};

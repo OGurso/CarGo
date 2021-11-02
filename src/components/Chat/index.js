@@ -1,14 +1,19 @@
 import React, { Component } from "react";
 import { withAuthorization, AuthUserContext } from "../Session";
 import { withFirebase } from "../Firebase";
-import { StyledBigButton, StyledInput, InlineButton } from "../../compStyles";
+import {
+  StyledBigButton,
+  StyledInput,
+  InlineButton,
+  CenterAll,
+} from "../../compStyles";
 
 const ChatPage = () => (
-  <div>
+  <CenterAll>
     <h1>Chat</h1>
     <p>The Chat Page is accessible by every signed in user.</p>
     <Messages />
-  </div>
+  </CenterAll>
 );
 
 class MessagesBase extends Component {
@@ -55,6 +60,7 @@ class MessagesBase extends Component {
     this.props.firebase.messages().push({
       text: this.state.text,
       userId: authUser.uid,
+      username: authUser.username,
       createdAt: this.props.firebase.serverValue.TIMESTAMP,
     });
     this.setState({ text: "" });
@@ -119,7 +125,7 @@ const MessageList = ({
         onEditMessage={onEditMessage}
         authUser={authUser}
       />
-    ))}{" "}
+    ))}
   </ul>
 );
 class MessageItem extends Component {
@@ -130,7 +136,6 @@ class MessageItem extends Component {
       editText: this.props.message.text,
     };
   }
-
   onToggleEditMode = () => {
     this.setState((state) => ({
       editMode: !state.editMode,
@@ -156,10 +161,11 @@ class MessageItem extends Component {
             type="text"
             value={editText}
             onChange={this.onChangeEditText}
+            autoComplete="off"
           />
         ) : (
           <span>
-            <strong>{message.userId}</strong> {message.text}
+            <strong>{message.username}</strong> {message.text}
             {message.editedAt && <span>(Edited)</span>}
           </span>
         )}

@@ -1,5 +1,13 @@
 import styled from "styled-components";
 
+export const CenterAll = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+`;
+
 export const StyledInput = styled.input`
   width: 250px;
   height: 50px;
@@ -20,13 +28,13 @@ export const StyledInput = styled.input`
 export const StyledBigButton = styled.button`
   background-color: ${(props) => props.theme.themePrimary};
   color: ${(props) => props.theme.colorDarkBg};
-  width: 250px;
+  width: 240px;
   height: 50px;
   border-radius: 32px;
   border: none;
   text-transform: uppercase;
   font-family: "Comfortaa";
-  font-size: 18px;
+  font-size: 16px;
   &:disabled,
   &[disabled] {
     color: ${(props) => props.theme.tone};
@@ -46,6 +54,13 @@ export const InlineButton = styled.button`
   border-radius: 32px;
   font-family: "Comfortaa";
   border: none;
+
+  &.secondary {
+    border-radius: 32px;
+    background-color: #fff;
+    color: #000;
+    border: 2px solid ${(props) => props.theme.themePrimary};
+  }
 `;
 
 export const InputwithIcon = styled.div`
@@ -75,9 +90,3 @@ export const StyledForm = styled.form`
     margin: 20px 0;
   }
 `;
-// export const CenterChildren = styled.div`
-//   display: flex;
-//   width: 100%;
-//   justify-content: center;
-//   align-items: center;
-// `;

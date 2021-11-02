@@ -1,11 +1,10 @@
 import React from "react";
-import { InlineButton } from "../../compStyles";
 import { withFirebase } from "../Firebase";
 
 const SignOutButton = ({ firebase }) => (
-  <InlineButton type="button" onClick={firebase.doSignOut}>
+  <button type="button" onClick={firebase.doSignOut}>
     Sign Out
-  </InlineButton>
+  </button>
 );
 
 export default withFirebase(SignOutButton);

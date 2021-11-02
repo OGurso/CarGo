@@ -16,7 +16,6 @@ const Datepicker = (props) => {
   console.log();
   function handleSelect(ranges) {
     console.log(ranges);
-    console.log(props.theme.color);
     setStartDate(ranges.selection.startDate);
     setEndDate(ranges.selection.endDate);
   }

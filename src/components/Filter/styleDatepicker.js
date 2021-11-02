@@ -4,6 +4,7 @@ export const StyledDate = styled.div`
   display: flex;
   justify-content: center;
   font-family: "Comfortaa";
+  border-radius: 20px;
 
   .rdrCalendarWrapper,
   .rdrMonths,

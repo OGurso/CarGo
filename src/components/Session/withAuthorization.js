@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 import AuthUserContext from "./context";
+import Landing from "../Landing";
 
 const withAuthorization = (condition) => (Component) => {
   class WithAuthorization extends React.Component {
@@ -14,7 +15,7 @@ const withAuthorization = (condition) => (Component) => {
             this.props.history.push(ROUTES.LANDING);
           }
         },
-        () => this.props.history.push(ROUTES.FILTER)
+        () => this.props.history.push(ROUTES.LANDING)
       );
     }
     componentWillUnmount() {
@@ -24,7 +25,7 @@ const withAuthorization = (condition) => (Component) => {
       return (
         <AuthUserContext.Consumer>
           {(authUser) =>
-            condition(authUser) ? <Component {...this.props} /> : null
+            condition(authUser) ? <Component {...this.props} /> : <Landing />
           }
         </AuthUserContext.Consumer>
       );
@@ -41,6 +42,7 @@ export default withAuthorization;
 // import { withFirebase } from '../Firebase';
 // import * as ROUTES from '../../constants/routes';
 // import AuthUserContext from './context';
+// import { LANDING } from "./../../constants/routes";
 
 // const withAuthorization = condition => Component => {
 

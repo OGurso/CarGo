@@ -7,3 +7,5 @@ export const ACCOUNT = "/account";
 export const ADMIN = "/admin";
 export const PASSWORD_FORGET = "/pw-forget";
 export const ADMIN_DETAILS = "/admin/:id";
+export const MAP = "/map";
+export const LIST = "/list";
