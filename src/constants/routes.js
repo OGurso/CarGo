@@ -9,3 +9,6 @@ export const PASSWORD_FORGET = "/pw-forget";
 export const ADMIN_DETAILS = "/admin/:id";
 export const MAP = "/map";
 export const LIST = "/list";
+export const CARS = "/cars";
+export const CARINFO = "/carinfo";
+export const CARREG = "/car-registration";

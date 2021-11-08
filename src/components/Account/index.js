@@ -1,49 +1,46 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
+import { NavLink } from "react-router-dom";
+import * as ROUTES from "../../constants/routes";
 
 import { PasswordForgetForm } from "../PasswordForget";
 import PasswordChangeForm from "../PasswordChange";
 import { AuthUserContext, withAuthorization } from "../Session";
 import { StyledBigButton, CenterAll } from "../../compStyles";
-// import Toggle from "./../reuseables/Toggle";
-// import ButtonGroup from "./../reuseables/ToggleTwo";
-import ToggleButton from "./../reuseables/ToggleButton";
+import Logout from "@mui/icons-material/Logout";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import Landing from "./../Landing/index";
 
-const AccountPage = ({ theme, setTheme }) => {
-  const { username } = useContext(AuthUserContext);
+const AccountPage = ({ theme, setTheme, firebase }) => {
+    const { username } = useContext(AuthUserContext);
 
-  const themeToggler = (e) => {
-    theme === "light" ? setTheme("dark") : setTheme("light");
-  };
+    const themeToggler = () => {
+        theme === "light" ? setTheme("dark") : setTheme("light");
+    };
 
-  const toggleOptions = [
-    { name: "Light", value: "light" },
-    { name: "Dark", value: "dark" },
-  ];
-
-  // function onChange(e) {
-  //   console.log(e.target.value);
-  // }
-  return (
-    <CenterAll>
-      <h1>Account: {username}</h1>
-      {/* <ToggleButton options={toggleOptions} onChange={(e) => themeToggler(e)} /> */}
-      {/* <ToggleButton
-        
-        defaultActive={1}
-        onClick={() => themeToggler()}
-      /> */}
-      {/* <ButtonGroup onChange={onChange} options={alternatives} name="themes" /> */}
-      <StyledBigButton
-        onClick={() => {
-          themeToggler();
-        }}
-      >
-        MODE
-      </StyledBigButton>
-      <PasswordForgetForm />
-      <PasswordChangeForm />
-    </CenterAll>
-  );
+    return (
+        <CenterAll>
+            <div>
+                <h1>Account: {username}</h1>
+                <NavLink exact to={ROUTES.LANDING} onClick={firebase.doSignOut}>
+                    <button>
+                        <Logout />
+                        SIGN OUT
+                    </button>
+                </NavLink>
+            </div>
+            <StyledBigButton
+                onClick={() => {
+                    themeToggler();
+                }}
+            >
+                {theme === "light" ? <LightModeIcon /> : <DarkModeIcon />}
+                MODE
+            </StyledBigButton>
+            <PasswordForgetForm />
+            <PasswordChangeForm />
+        </CenterAll>
+    );
 };
 
 const condition = (authUser) => !!authUser;

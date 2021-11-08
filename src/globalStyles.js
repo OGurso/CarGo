@@ -5,19 +5,26 @@ export const GlobalStyles = createGlobalStyle`
 body{
   background-color: ${(props) => props.theme.bgPrimary};
   color: ${(props) => props.theme.color};
-  width:100vw;
-  height:100vh;
 }
 a{
   color: ${(props) => props.theme.color};
+  text-decoration: none;
 }
 
 h1, h2, h3{
   font-family: "Comfortaa";
-  h3{
-    color:${(props) => props.theme.tone};
-  }
+  text-align: center;
+  color:${(props) => props.theme.color};
 }
+h1, h2{
+  margin: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+h3{
+    color:${(props) => props.theme.tone};
+}
+
 h1,p{
   padding: 0 20px;
 }

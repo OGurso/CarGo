@@ -1,93 +1,92 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 
-import SignOutButton from "../SignOut";
 import * as ROUTES from "../../constants/routes";
 import * as ROLES from "../../constants/roles";
-
 import { AuthUserContext } from "../Session";
+import { withFirebase } from "../Firebase";
 
-import Box from "@mui/material/Box";
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import CalendarToday from "@mui/icons-material/CalendarToday";
 import PersonIcon from "@mui/icons-material/Person";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import Logout from "@mui/icons-material/Logout";
 
-const Navigation = () => (
-  <div>
-    <AuthUserContext.Consumer>
-      {(authUser) => (authUser ? <NavigationAuth authUser={authUser} /> : null)}
-    </AuthUserContext.Consumer>
-  </div>
+const NavContainer = styled.div`
+    display: flex;
+    flex-wrap: nowrap;
+    position: fixed;
+    box-sizing: border-box;
+    bottom: 0;
+    left: 0;
+    z-index: 101;
+    width: 100%;
+    height: 60px;
+    background: ${(props) => props.theme.bgPrimary};
+    border-top: 2px solid ${(props) => props.theme.color};
+    &*:hover {
+        opacity: 0.6;
+    }
+    span {
+        font-size: 12px;
+    }
+    & > * {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        transition: all 0.2s ease-in;
+
+        & > * {
+            color: ${(props) => props.theme.color};
+        }
+    }
+    .activeLink {
+        background: ${(props) => props.theme.color};
+        & > * {
+            color: ${(props) => props.theme.bgPrimary};
+        }
+    }
+`;
+
+const Navigation = ({ firebase }) => (
+    <>
+        <AuthUserContext.Consumer>
+            {(authUser) =>
+                authUser ? (
+                    <NavigationAuth authUser={authUser} firebase={firebase} />
+                ) : null
+            }
+        </AuthUserContext.Consumer>
+    </>
 );
 
 // authUser.roles[ROLES.ADMIN]
-const NavigationAuth = ({ authUser }) => {
-  const [value, setValue] = useState(0);
-
-  return (
-    <Box
-      sx={{
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        zIndex: 100,
-        width: "100%",
-      }}
-      md={{
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        zIndex: 100,
-        height: "45px",
-      }}
-    >
-      <BottomNavigation
-        showLabels
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-      >
-        <BottomNavigationAction
-          component={Link}
-          to={ROUTES.FILTER}
-          label="FILTER"
-          icon={<CalendarToday />}
-        />
-        <BottomNavigationAction
-          component={Link}
-          to={ROUTES.CHAT}
-          label="CHAT"
-          icon={<AddCircleOutlineIcon />}
-        />
-        <BottomNavigationAction
-          component={Link}
-          to={ROUTES.ACCOUNT}
-          label="ACCOUNT"
-          icon={<AccountCircle />}
-        />
-
-        {!!authUser.roles[ROLES.ADMIN] && (
-          <BottomNavigationAction
-            component={Link}
-            to={ROLES.ADMIN}
-            label="ADMIN"
-            icon={<PersonIcon />}
-          />
-        )}
-        <BottomNavigationAction
-          component={SignOutButton}
-          to={ROLES.ADMIN}
-          label="Sign out"
-          icon={<Logout />}
-        />
-      </BottomNavigation>
-    </Box>
-  );
+const NavigationAuth = ({ authUser, firebase }) => {
+    return (
+        <NavContainer>
+            <NavLink activeClassName="activeLink" to={ROUTES.FILTER}>
+                <CalendarToday />
+                <span>FILTER</span>
+            </NavLink>
+            <NavLink activeClassName="activeLink" to={ROUTES.CARREG}>
+                <AddCircleOutlineIcon />
+                <span>ADD CAR</span>
+            </NavLink>
+            <NavLink activeClassName="activeLink" to={ROUTES.ACCOUNT}>
+                <AccountCircle />
+                <span>ACCOUNT</span>
+            </NavLink>
+            {!!authUser.roles[ROLES.ADMIN] && (
+                <NavLink activeClassName="activeLink" to={ROUTES.ADMIN}>
+                    <PersonIcon />
+                    <span>ADMIN</span>
+                </NavLink>
+            )}
+        </NavContainer>
+    );
 };
 
 // const NavigationNonAuth = () => (
@@ -101,4 +100,4 @@ const NavigationAuth = ({ authUser }) => {
 //   </ul>
 // );
 
-export default Navigation;
+export default withFirebase(Navigation);
