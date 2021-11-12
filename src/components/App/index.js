@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Navigation from "../Navigation";
@@ -12,6 +12,7 @@ import AccountPage from "../Account";
 import AdminPage from "../Admin";
 import Cars from "../Cars";
 import CarReg from "../CarReg";
+import CarInfo from "../Cars/CarInfo";
 
 import * as ROUTES from "../../constants/routes";
 import { withAuthentication } from "../Session";
@@ -23,39 +24,47 @@ import Landing from "./../Landing/index";
 
 const App = () => {
     const [theme, setTheme] = useLocalStorageState("theme", "light");
+    const [selectedCar, setSelectedCar] = useState({});
 
     return (
         <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
             <GlobalStyles />
             <Router>
                 <Navigation />
-                <div>
-                    <Route exact path={ROUTES.LANDING} component={Landing} />
-                    <Route
-                        exact
-                        path={ROUTES.FILTER}
-                        component={() => <Filter theme={theme} />}
-                    />
-                    <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
-                    <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-                    <Route
-                        path={ROUTES.PASSWORD_FORGET}
-                        component={PasswordForgetPage}
-                    />
-                    <Route path={ROUTES.CHAT} component={ChatPage} />
+                <Route exact path={ROUTES.LANDING} component={Landing} />
+                <Route
+                    exact
+                    path={ROUTES.FILTER}
+                    component={() => <Filter theme={theme} />}
+                />
+                <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+                <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+                <Route
+                    path={ROUTES.PASSWORD_FORGET}
+                    component={PasswordForgetPage}
+                />
+                <Route path={ROUTES.CHAT} component={ChatPage} />
 
-                    <Route
-                        path={ROUTES.ACCOUNT}
-                        component={() => (
-                            <AccountPage theme={theme} setTheme={setTheme} />
-                        )}
-                    />
-                    <Route path={ROUTES.ADMIN} component={AdminPage} />
-                    <Route path={ROUTES.CARREG} component={CarReg} />
-                    <Route path={[ROUTES.MAP, ROUTES.LIST]}>
-                        <Cars />
-                    </Route>
-                </div>
+                <Route
+                    path={ROUTES.ACCOUNT}
+                    component={() => (
+                        <AccountPage theme={theme} setTheme={setTheme} />
+                    )}
+                />
+                <Route path={ROUTES.ADMIN} component={AdminPage} />
+                <Route
+                    path={ROUTES.CARINFO}
+                    component={() => <CarInfo selectedCar={selectedCar} />}
+                />
+                <Route
+                    path={ROUTES.CARREG}
+                    exact
+                    component={() => <CarReg theme={theme} />}
+                />
+
+                <Route path={[ROUTES.MAP, ROUTES.LIST]} exact>
+                    <Cars setSelectedCar={setSelectedCar} />
+                </Route>
             </Router>
         </ThemeProvider>
     );

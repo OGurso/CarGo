@@ -126,6 +126,10 @@ class SignInGoogleBase extends Component {
         return (
             <div>
                 <img
+                    style={{
+                        boxShadow: "0px 0px 5px #7A7A7A",
+                        borderRadius: "10px",
+                    }}
                     onClick={this.onSubmit}
                     src={googlelogin}
                     alt="gmail-login"

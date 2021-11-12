@@ -1,6 +1,6 @@
 export const lightTheme = {
     bgPrimary: "#fff",
-    bgSecondary: "#fff",
+    bgSecondary: "#ededed",
     color: "#000",
     colorDarkBg: "#fff",
     themePrimary: "#43456C",

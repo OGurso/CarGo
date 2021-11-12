@@ -20,12 +20,14 @@ const Filter = ({ theme, history }) => {
                 callback={(item) => history.push(item.link)}
             />
             <p>When do you need a car?</p>
+
             <Datepicker theme={theme === "light" ? lightTheme : darkTheme} />
+
             <BigButton
                 handleClick={() => {
                     history.push(ROUTES.MAP);
                 }}
-                label="DONE"
+                label="Go to cars"
                 type="primary"
             />
         </CenterAll>

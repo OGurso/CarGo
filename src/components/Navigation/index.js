@@ -12,7 +12,7 @@ import CalendarToday from "@mui/icons-material/CalendarToday";
 import PersonIcon from "@mui/icons-material/Person";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
-const NavContainer = styled.div`
+const NavContainer = styled.nav`
     display: flex;
     flex-wrap: nowrap;
     position: fixed;
@@ -22,11 +22,10 @@ const NavContainer = styled.div`
     z-index: 101;
     width: 100%;
     height: 60px;
-    background: ${(props) => props.theme.bgPrimary};
-    border-top: 2px solid ${(props) => props.theme.color};
-    &*:hover {
-        opacity: 0.6;
-    }
+    padding: 4px 10px;
+    background: ${(props) => props.theme.bgSecondary};
+    border-top: 2px solid ${(props) => props.theme.bgPrimary};
+
     span {
         font-size: 12px;
     }
@@ -40,13 +39,14 @@ const NavContainer = styled.div`
         transition: all 0.2s ease-in;
 
         & > * {
-            color: ${(props) => props.theme.color};
+            color: ${(props) => props.theme.tone};
         }
     }
     .activeLink {
-        background: ${(props) => props.theme.color};
+        border-radius: 10px;
+        background: ${(props) => props.theme.bgPrimary};
         & > * {
-            color: ${(props) => props.theme.bgPrimary};
+            color: ${(props) => props.theme.themePrimary};
         }
     }
 `;

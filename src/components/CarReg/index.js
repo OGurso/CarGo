@@ -12,36 +12,37 @@ import {
     Confirm,
 } from "./export";
 
-const CarReg = () => {
-    const [activeStep, setActiveStep] = React.useState(0);
-    const [completed, setCompleted] = React.useState({});
+const CarReg = ({ theme }) => {
+    const [activeStep, setActiveStep] = React.useState({ data: "", step: 0 });
 
-    const totalSteps = () => {
-        return steps.length;
-    };
-
-    const completedSteps = () => {
-        return Object.keys(completed).length;
-    };
     const Container = styled.div`
         display: flex;
         min-height: calc(100vh - 310px);
         justify-content: center;
         align-items: center;
+        font-family: "Comfortaa";
+        & > div > * {
+            margin-bottom: 30px;
+            padding: 0 20px;
+        }
+
+        & > div > label {
+            font-size: 18px;
+        }
     `;
     const StyledHeader = styled.div`
-        background: #f8f8f8;
+        background: ${(props) => props.theme.bgSecondary};
         padding: 0 40px;
         display: flex;
         height: 125px;
         align-items: center;
         justify-content: flex-start;
         > h3 {
-            color: black;
+            color: ${(props) => props.theme.color};
             position: relative;
             &:after {
                 content: " ";
-                background: black;
+                background: ${(props) => props.theme.color};
                 height: 2px;
                 width: 100%;
                 position: absolute;
@@ -50,34 +51,43 @@ const CarReg = () => {
             }
         }
     `;
+    //component object with assocciative title
     let steps = [
         {
             title: "Rent Your Car",
-            view: "SearchReg",
+            view: <SearchReg />,
         },
         {
             title: "Is this your car",
-            view: "CarConfirm",
+            view: <CarConfirm />,
         },
         {
             title: "Upload Images",
-            view: "UploadImages",
+            view: <UploadImages />,
         },
         {
             title: "Choose Price",
-            view: "ChoosePrice",
+            view: <ChoosePrice />,
         },
         {
             title: "When is it Available",
-            view: "Available",
+            view: <Available theme={theme} />,
         },
         {
             title: "Congratulation",
-            view: "Confirm",
+            view: <Confirm />,
         },
     ];
-    const changeView = () => {
-        setActiveStep(activeStep + 1);
+    //changes view depending on whats active which is saved under the address activeStep.step
+    const changeView = (data) => {
+        let state = {};
+        if (!data) {
+            state = { ...activeStep };
+            state.step = state.step + 1;
+        } else {
+            state = { data: data, step: activeStep.step + 1 };
+        }
+        setActiveStep(state);
     };
     return (
         <>
@@ -85,22 +95,22 @@ const CarReg = () => {
                 <BackButton />
             </HeaderWithBack>
             <Stepper
-                activeStep={activeStep}
+                activeStep={activeStep.step}
                 sx={{
-                    width: "80%",
+                    width: "70%",
                     margin: "30px auto",
                 }}
             >
-                {steps.map((item) => {
+                {steps.map((item, index) => {
                     return (
                         <Step
-                            key={item.view}
+                            key={index}
                             sx={{
                                 padding: 0,
                             }}
                         >
                             <StepLabel
-                                icon=" "
+                                icon=""
                                 sx={{
                                     " > span.MuiStepLabel-iconContainer": {
                                         padding: 0,
@@ -114,16 +124,16 @@ const CarReg = () => {
                 })}
             </Stepper>
             <StyledHeader>
-                <h3>{steps[activeStep].title}</h3>
+                <h3>{steps[activeStep.step].title}</h3>
             </StyledHeader>
 
             <Container>
                 <CenterAll>
-                    {React.createElement(
-                        steps[activeStep].view,
-                        { changeView: () => changeView() },
-                        null
-                    )}
+                    {/* create a cloned components depending on whats defined under steps and pass states to child components to control view */}
+                    {React.cloneElement(steps[activeStep.step].view, {
+                        nextStep: changeView,
+                        activeStep: activeStep,
+                    })}
                 </CenterAll>
             </Container>
         </>

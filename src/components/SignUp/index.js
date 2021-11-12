@@ -16,10 +16,10 @@ import lockIcon from "../../img/icons/lock.svg";
 import personIcon from "../../img/icons/person.svg";
 
 const SignUpPage = () => (
-    <div>
+    <main>
         <h1>Sign Up</h1>
         <SignUpForm />
-    </div>
+    </main>
 );
 
 const INITIAL_STATE = {

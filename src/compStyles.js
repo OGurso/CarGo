@@ -6,6 +6,7 @@ export const CenterAll = styled.div`
     height: 100%;
     flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
 `;
 
 export const StyledInput = styled.input`

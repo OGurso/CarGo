@@ -9,7 +9,6 @@ import { StyledBigButton, CenterAll } from "../../compStyles";
 import Logout from "@mui/icons-material/Logout";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import Landing from "./../Landing/index";
 
 const AccountPage = ({ theme, setTheme, firebase }) => {
     const { username } = useContext(AuthUserContext);
@@ -20,15 +19,14 @@ const AccountPage = ({ theme, setTheme, firebase }) => {
 
     return (
         <CenterAll>
-            <div>
-                <h1>Account: {username}</h1>
-                <NavLink exact to={ROUTES.LANDING} onClick={firebase.doSignOut}>
-                    <button>
-                        <Logout />
-                        SIGN OUT
-                    </button>
-                </NavLink>
-            </div>
+            <h1>Account: {username}</h1>
+            <NavLink exact to={ROUTES.LANDING} onClick={firebase.doSignOut}>
+                <StyledBigButton>
+                    <Logout />
+                    SIGN OUT
+                </StyledBigButton>
+            </NavLink>
+
             <StyledBigButton
                 onClick={() => {
                     themeToggler();

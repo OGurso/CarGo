@@ -1,16 +1,23 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
+
 import styled from "styled-components";
 import bild from "../../img/volvo-xc6-2.png";
-import { FaStar } from "react-icons/fa";
+import Toggle from "./../reuseables/Toggle";
+import { ToggleContainer } from "./../../compStyles";
+import * as ROUTES from "../../constants/routes";
 
 const ListContainer = styled.div`
+    overflow: hidden;
     & > ul {
         list-style: none;
         padding: 0 10px 60px 10px;
+        height: calc(100% - 160px);
+
         li {
             display: flex;
             padding: 10px;
-            box-shadow: 0px 0px 5px #74747442;
+            box-shadow: 0px 0px 5px ${(props) => props.theme.tone};
             border-radius: 10px;
             margin: 10px 0;
 
@@ -26,7 +33,6 @@ const ListContainer = styled.div`
                 padding: 10px;
                 display: flex;
                 width: 100%;
-                /* height: 100%; */
                 flex: 1;
                 flex-direction: column;
                 align-items: space-between;
@@ -38,51 +44,105 @@ const ListContainer = styled.div`
                 display: flex;
                 justify-content: space-between;
             }
-            .contentOne {
-                /* display: flex;
-                justify-content: space-between; */
-            }
+            /* .contentTwo {
+        
+            } */
         }
     }
 `;
 
-const List = ({ listData }) => {
+const List = ({ listData, setListData, history, setSelectedCar }) => {
+    const filter = [
+        { name: "Rating", key: "averageRating" },
+        { name: "Newest", key: "year" },
+        { name: "Price", key: "dailyCost" },
+    ];
+    const sortBy = (item) => {
+        let by = item.key;
+        let order = "asc";
+        let data = [...listData];
+
+        if (typeof data[0][by] == "number") {
+            data = data.sort((a, b) =>
+                order === "asc" ? b[by] - a[by] : a[by] - b[by]
+            );
+        } else if (typeof data[0][by] === "function") {
+            data = data.sort((a, b) =>
+                order === "asc" ? b[by]() - a[by]() : a[by]() - b[by]()
+            );
+        } else if (typeof data[0][by] === "string") {
+            data = data.sort((a, b) =>
+                order === "asc"
+                    ? b[by].localeCompare(a[by])
+                    : a[by].localeCompare(b[by])
+            );
+        }
+        setListData(data);
+    };
+    const handleItemClick = (item) => {
+        setSelectedCar(item);
+        history.push(ROUTES.CARINFO);
+    };
     return (
-        <ListContainer>
-            <ul>
-                {listData.map((item, index) => {
-                    return (
-                        <ListItem
-                            key={index}
-                            name={item.carName}
-                            cost={item.dailyCost}
-                            date={item.year}
-                            rating={item.averageRating()}
-                        />
-                    );
-                })}
-            </ul>
-        </ListContainer>
+        <>
+            <ToggleContainer>
+                <Toggle alternatives={filter} callback={sortBy} />
+            </ToggleContainer>
+
+            <ListContainer>
+                <ul onClick={() => console.log("parent clicked")}>
+                    {listData.map((item, index) => {
+                        return (
+                            <ListItem
+                                key={index}
+                                name={item.carName}
+                                cost={item.dailyCost}
+                                date={item.year}
+                                rating={item.averageRating()}
+                                handleItemClick={() => handleItemClick(item)}
+                            />
+                        );
+                    })}
+                </ul>
+            </ListContainer>
+        </>
     );
 };
 
-export default List;
+export default withRouter(List);
 
-const ListItem = ({ name, date, cost, rating }) => (
-    <li>
-        <img src={bild} alt="car" />
-        <div className="content">
-            <div className="contentOne">
-                <span>{name}</span>
-                <span>{date}</span>
+export const ListItem = ({ name, date, cost, rating, handleItemClick }) => {
+    return (
+        <li onClick={handleItemClick}>
+            <img src={bild} alt="car" />
+            <div className="content">
+                <div className="contentOne">
+                    <span>{name}</span>
+                    <span>{date}</span>
+                </div>
+                <div className="contentTwo">
+                    <span>{cost} kr</span>
+                    <span>
+                        <span style={{ color: "orange", fontSize: 16 }}>
+                            {String.fromCharCode(9733).repeat(
+                                Math.floor(rating)
+                            )}
+                        </span>
+                        <span
+                            style={{
+                                color: "lightgrey",
+                                fontSize: 16,
+                                paddingRight: 5,
+                            }}
+                        >
+                            {String.fromCharCode(9733).repeat(
+                                5 - Math.floor(rating)
+                            )}
+                        </span>
+                        {rating.toFixed(1)}
+                    </span>
+                </div>
             </div>
-            <div className="contentTwo">
-                <span>{cost} kr</span>
-                <span>
-                    <FaStar color="#CCA747" />
-                    {rating}
-                </span>
-            </div>
-        </div>
-    </li>
-);
+        </li>
+    );
+};

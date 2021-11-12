@@ -38,8 +38,14 @@ const StyledToggle = styled.div`
     }
 `;
 
-const Toggle = ({ alternatives, callback }) => {
+const Toggle = ({ alternatives, callback, setToggleCopy }) => {
     const [activeButton, setActiveButton] = useState(0);
+
+    useEffect(() => {
+        if (setToggleCopy) {
+            setToggleCopy(activeButton);
+        }
+    }, [activeButton]);
 
     useEffect(() => {
         if (typeof callback != "function") return;

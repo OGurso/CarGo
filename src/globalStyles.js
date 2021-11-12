@@ -5,6 +5,11 @@ export const GlobalStyles = createGlobalStyle`
 body{
   background-color: ${(props) => props.theme.bgPrimary};
   color: ${(props) => props.theme.color};
+  height: calc(100vh - 60px)
+}
+
+#root{
+  height: 100%;
 }
 a{
   color: ${(props) => props.theme.color};
@@ -29,6 +34,8 @@ h1,p{
   padding: 0 20px;
 }
 main{
+  width:100%;
+  height:100%;
   display:flex;
   flex-flow: column;
   justify-content: center;
