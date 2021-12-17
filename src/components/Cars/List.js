@@ -90,7 +90,7 @@ const List = ({ listData, setListData, history, setSelectedCar }) => {
             </ToggleContainer>
 
             <ListContainer>
-                <ul onClick={() => console.log("parent clicked")}>
+                <ul>
                     {listData.map((item, index) => {
                         return (
                             <ListItem

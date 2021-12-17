@@ -43,7 +43,6 @@ const Cars = (props) => {
     }, [trigger]);
     return (
         <>
-            {console.log(toggleCopy)}
             <HeaderWithBack>
                 <BackButton />
                 <h2>Available Cars</h2>

@@ -29,6 +29,7 @@ const NavContainer = styled.nav`
     span {
         font-size: 12px;
     }
+
     & > * {
         display: flex;
         flex: 1;
@@ -88,16 +89,5 @@ const NavigationAuth = ({ authUser, firebase }) => {
         </NavContainer>
     );
 };
-
-// const NavigationNonAuth = () => (
-//   <ul>
-//     <li>
-//       <Link to={ROUTES.LANDING}>Landing</Link>
-//     </li>
-//     <li>
-//       <Link to={ROUTES.SIGN_IN}>Login</Link>
-//     </li>
-//   </ul>
-// );
 
 export default withFirebase(Navigation);
